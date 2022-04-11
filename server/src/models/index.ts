@@ -1,5 +1,12 @@
-import { Entry } from './entry';
+import { TimeSlot } from './timeslot';
+import { User } from './user';
+import { Space } from './space';
+import { Reservation } from './reservation';
 
 export const entities = [
-  Entry,
+  TimeSlot,
+  User,
+  Space,
+  Reservation
 ];
+
