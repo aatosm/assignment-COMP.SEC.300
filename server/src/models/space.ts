@@ -1,8 +1,8 @@
-import { Entity, Column, PrimaryGeneratedColumn, OneToMany } from 'typeorm';
+import { Entity, Column, PrimaryGeneratedColumn, OneToMany, BaseEntity } from 'typeorm';
 import { TimeSlot } from './timeslot';
 
 @Entity()
-export class Space {
+export class Space extends BaseEntity {
 
   @PrimaryGeneratedColumn('uuid')
   id: number;

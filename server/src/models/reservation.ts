@@ -1,9 +1,9 @@
-import { Entity, PrimaryGeneratedColumn, ManyToOne, OneToOne, JoinColumn } from 'typeorm';
+import { Entity, PrimaryGeneratedColumn, ManyToOne, OneToOne, JoinColumn, BaseEntity } from 'typeorm';
 import { TimeSlot } from './timeslot';
 import { User } from './user';
 
 @Entity()
-export class Reservation {
+export class Reservation extends BaseEntity {
 
   @PrimaryGeneratedColumn('uuid')
   id: number;

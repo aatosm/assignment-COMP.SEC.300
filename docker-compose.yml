@@ -20,5 +20,26 @@ services:
       - /server/node_modules
     networks:
       - app-network
+    depends_on:
+      - database
+    links:
+      - database
+
+  database:
+    image: postgres:9.6-alpine
+    restart: always
+    environment:
+      - POSTGRES_USER=postgres
+      - POSTGRES_PASSWORD=postgres
+      - POSTGRES_DB=reservations
+    ports:
+      - 5432:5432
+    volumes:
+      - db:/var/lib/postgresql/data
+    networks:
+      - app-network
 networks: 
   app-network:
+volumes:
+  db:
+    driver: local

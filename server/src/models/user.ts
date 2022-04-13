@@ -1,8 +1,8 @@
-import { Entity, Column, PrimaryGeneratedColumn, OneToMany } from 'typeorm';
+import { Entity, Column, PrimaryGeneratedColumn, OneToMany, BaseEntity } from 'typeorm';
 import { Reservation } from './reservation';
 
 @Entity()
-export class User {
+export class User extends BaseEntity {
 
   @PrimaryGeneratedColumn('uuid')
   id: number;
@@ -11,13 +11,7 @@ export class User {
   email: string;
 
   @Column()
-  firstName: string;
-
-  @Column()
-  lastName: string;
-
-  @Column()
-  accountType: string;
+  name: string;
 
   @OneToMany(() => Reservation, reservation => reservation.user)
   reservations: Reservation[];
