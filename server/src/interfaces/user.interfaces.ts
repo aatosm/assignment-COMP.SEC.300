@@ -1,6 +1,10 @@
-import { User } from "../models/user";
+export interface UserData {
+  id: string,
+  email: string,
+  name: string
+}
 
 export interface CreateUserResponse {
   message: string,
-  data: User
+  data: UserData
 }
