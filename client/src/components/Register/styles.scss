@@ -1,0 +1,24 @@
+.register-container {
+  display: flex;
+  flex-direction: column;
+  width: 500px;
+  padding: 30px 30px 30px 30px;
+}
+
+.register {
+  &__title {
+    display: flex;
+  }
+  &__form {
+    > form {
+      display: flex;
+      flex-direction: column;
+      > label {
+        margin: 0 0 5px 0;
+      }
+      > input {
+        margin: 0 0 20px 0;
+      }
+    }
+  }
+}

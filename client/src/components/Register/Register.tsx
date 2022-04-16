@@ -1,39 +1,35 @@
 import * as React from "react";
 import "./styles.scss";
 import { useForm } from "react-hook-form";
-import { loginUser } from "../../lib/api";
+import { registerUser } from "../../lib/api";
 
-interface IProps {
-  setAuth: React.Dispatch<React.SetStateAction<boolean>>
-}
-
-const Login = (props: IProps) => {
-  const { setAuth } = props;
+const Register = () => {
   const {
     register,
     handleSubmit,
     formState: { errors },
   } = useForm();
 
-  async function onSubmit(data: any) {
-    const response = await loginUser(data);
+  async function onSubmit(data: any){
+    const response = await registerUser(data);
     if (response.status === 200) {
-      console.log(response);
-      setAuth(true);
+      console.log(response.data.message);
     }
   };
 
   return (
-    <div className="login-container">
-      <div className="login__title">
-        <h3>Sign up</h3>
+    <div className="register-container">
+      <div className="register__title">
+        <h3>Register new user</h3>
       </div>
-      <div className="login__form">
+      <div className="register__form">
         <form onSubmit={handleSubmit(onSubmit)}>
           <label>Email</label>
           <input {...register('email', { required: true })} />
           <label>Password</label>
           <input {...register('password', { required: true })} />
+          <label>Re-type password</label>
+          <input {...register('password2', { required: true })} />
           <input type="submit" />
         </form>
       </div>
@@ -41,4 +37,4 @@ const Login = (props: IProps) => {
   )
 };
 
-export default Login;
+export default Register;

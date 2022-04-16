@@ -1,9 +1,16 @@
 import Login from '../../components/Login'
+import Register from '../../components/Register'
 
-const AuthView = () => {
+interface IProps {
+  setAuth: React.Dispatch<React.SetStateAction<boolean>>
+}
+
+const AuthView = (props: IProps) => {
+  const { setAuth } = props;
   return (
     <div>
-      <Login />
+      <Register />
+      <Login setAuth={ setAuth } />
     </div>
   )
 }

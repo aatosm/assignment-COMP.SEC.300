@@ -8,7 +8,7 @@ const App = () => {
 
   return (
     <div>
-      { authenticated ? <MainView /> : <AuthView /> }
+      { authenticated ? <MainView /> : <AuthView setAuth={ setAuth } /> }
       <MainView />
     </div>
   );
