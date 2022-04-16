@@ -9,6 +9,7 @@ import * as session from 'express-session';
 import { passport } from "./middlewares/passport"
 import { TypeormStore } from 'connect-typeorm';
 import { Session } from './models/session';
+import { initDatabase } from './config/initdb';
 
 export async function createApp() {
   await createConnection({
@@ -26,6 +27,10 @@ export async function createApp() {
   });
 
   console.log('Connected to the database.');
+
+  /*if (process.env.INIT_DB == 'true') {
+    await initDatabase();
+  }*/
 
   const app = express();
 

@@ -8,19 +8,16 @@ export class TimeSlot extends BaseEntity {
   @PrimaryGeneratedColumn('uuid')
   id: number;
 
-  @Column({type: 'date'})
-  startTime: string;
-
-  @Column({type: 'date'})
-  endTime: string;
+  @Column()
+  startTime: Date;
 
   @ManyToOne(() => Space, space => space.timeslots)
   space: Space;
 
   @OneToOne(() => Reservation)
   @JoinColumn()
-  reservation: Reservation;
+  reservation?: Reservation;
 
-  @Column()
+  @Column('boolean', {default: false})
   isReserved: boolean;
 }

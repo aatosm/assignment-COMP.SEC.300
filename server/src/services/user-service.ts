@@ -2,8 +2,7 @@ import { User } from "../models/user";
 import * as bcrypt from 'bcrypt';
 
 export async function fetchUsers() {
-  const users = await User.find();
-  return users;
+  return await User.find();
 }
 
 export async function registerUser(body) {
@@ -24,7 +23,7 @@ export async function passwordsMatch(password: string, hashedPassword: string) {
   return await bcrypt.compare(password, hashedPassword);
 }
 
-async function hashPassword(password: string) {
+export async function hashPassword(password: string) {
   const salt = await bcrypt.genSalt();
   return await bcrypt.hash(password, salt);
 }

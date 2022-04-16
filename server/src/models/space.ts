@@ -5,11 +5,11 @@ import { TimeSlot } from './timeslot';
 export class Space extends BaseEntity {
 
   @PrimaryGeneratedColumn('uuid')
-  id: number;
+  id: string;
 
   @Column()
   identifier: string;
 
   @OneToMany(() => TimeSlot, timeslot => timeslot.space)
-  timeslots: TimeSlot[];
+  timeslots?: TimeSlot[];
 }

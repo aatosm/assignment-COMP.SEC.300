@@ -14,13 +14,11 @@ export class User extends BaseEntity {
   @Column()
   name: string;
 
-  @Column({
-    nullable: true
-  })
-  password?: string;
+  @Column()
+  password: string;
 
   @OneToMany(() => Reservation, reservation => reservation.user)
-  reservations: Reservation[];
+  reservations?: Reservation[];
 
   toUserData(): UserData {
     return {
