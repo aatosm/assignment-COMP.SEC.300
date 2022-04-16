@@ -25,5 +25,12 @@ export const createAuthRouter = (): Router => {
 
   router.post('/login', signInUser);
 
+  router.post('/logout', (req, res) => {
+    req.logout();
+    res.json({
+      message: 'Successfully logged out'
+    });
+  });
+
   return router;
 };

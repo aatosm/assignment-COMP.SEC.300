@@ -12,3 +12,7 @@ export async function registerUser(params: IRegisterUser) {
 export async function loginUser(params: ILoginUser) {
   return await client.post(`/auth/login`, params);
 }
+
+export async function logOutUser() {
+  return await client.post(`/auth/logout`);
+}

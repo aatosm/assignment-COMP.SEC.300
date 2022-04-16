@@ -1,10 +1,14 @@
 import { useEffect, useState } from 'react';
 import TimeSlotList from '../../components/TimeSlotList'
-import { getTimeSlots } from '../../lib/api/index'
+import { getTimeSlots, logOutUser } from '../../lib/api/index'
 import { ITimeSlot } from '../../types/timeslot'
 
-const MainView = () => {
+interface IProps {
+  setAuth: React.Dispatch<React.SetStateAction<boolean>>
+}
 
+const MainView = (props: IProps) => {
+  const { setAuth } = props;
   const [ timeSlots, setTimeSlots ] = useState<ITimeSlot[]>([]);
 
   useEffect(() => {
@@ -16,8 +20,17 @@ const MainView = () => {
     fetchTimeSlots();
   }, []);
 
+  async function logOut() {
+    const response = await logOutUser();
+    if (response.status === 200) {
+      console.log(response.data.message);
+      setAuth(false);
+    }
+  }
+
   return (
     <div>
+      <button onClick={logOut}>Log out</button>
       <TimeSlotList
         timeSlots={timeSlots}
       />
