@@ -1,10 +1,15 @@
-import * as React from "react";
-import Login from './components/Login'
+import { useState } from "react";
+import MainView from './views/MainView';
+import AuthView from './views/AuthView';
 
-function App() {
+const App = () => {
+
+  const [authenticated, setAuth] = useState(false);
+
   return (
     <div>
-      <Login />
+      { authenticated ? <MainView /> : <AuthView /> }
+      <MainView />
     </div>
   );
 }

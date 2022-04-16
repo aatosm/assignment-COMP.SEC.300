@@ -25,6 +25,10 @@ const Login = () => {
           <input type="submit" />
         </form>
       </div>
+      <div>
+        <p>OR</p>
+        <a href="#">Sign in with Google</a>
+      </div>
     </div>
   )
 };
