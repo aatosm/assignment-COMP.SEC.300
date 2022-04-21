@@ -2,13 +2,15 @@ import { useEffect, useState } from 'react';
 import TimeSlotList from '../../components/TimeSlotList'
 import { getTimeSlots, logOutUser } from '../../lib/api/index'
 import { ITimeSlot } from '../../types/timeslot'
+import { IUser } from '../../types/user';
 
 interface IProps {
   setAuth: React.Dispatch<React.SetStateAction<boolean>>
+  user: IUser
 }
 
 const MainView = (props: IProps) => {
-  const { setAuth } = props;
+  const { setAuth, user } = props;
   const [ timeSlots, setTimeSlots ] = useState<ITimeSlot[]>([]);
 
   useEffect(() => {

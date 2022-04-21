@@ -34,7 +34,8 @@ export async function signInUser(req: Request, res: Response, next: NextFunction
         return;
       }
       const response = {
-        message: 'Login successful'
+        message: 'Login successful',
+        user: user
       };
       res.status(200).json(response);
     });

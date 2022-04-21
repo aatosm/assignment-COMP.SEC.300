@@ -2,13 +2,15 @@ import * as React from "react";
 import "./styles.scss";
 import { useForm } from "react-hook-form";
 import { loginUser } from "../../lib/api";
+import { IUser } from "../../types/user";
 
 interface IProps {
-  setAuth: React.Dispatch<React.SetStateAction<boolean>>
+  setAuth: React.Dispatch<React.SetStateAction<boolean>>,
+  setUser: React.Dispatch<React.SetStateAction<IUser>>
 }
 
 const Login = (props: IProps) => {
-  const { setAuth } = props;
+  const { setAuth, setUser } = props;
   const {
     register,
     handleSubmit,
@@ -18,8 +20,12 @@ const Login = (props: IProps) => {
   async function onSubmit(data: any) {
     const response = await loginUser(data);
     if (response.status === 200) {
-      console.log(response);
+      const { id, email } = response.data.user;
       setAuth(true);
+      setUser({
+        id,
+        email
+      });
     }
   };
 
