@@ -1,4 +1,5 @@
 import { Router } from "express";
+import { deleteReservation, getReservations, postReservation } from "./controllers/reservation-controller";
 import { getTimeSlots } from "./controllers/timeslot-controller";
 import { getUsers, createUser, getUserById } from "./controllers/user-controller";
 import { asyncWrapper } from "./middlewares/async-wrapper";
@@ -13,9 +14,9 @@ export const createRouter = (): Router => {
 
   router.get('/timeslots', asyncWrapper(getTimeSlots));
 
-  /*router.get('/reservations', asyncWrapper(getOwnReservations));
-  router.post('reservations', asyncWrapper(postReservation));
-  router.delete('/reservations/:id', asyncWrapper(deleteReservation));*/
+  router.get('/reservations/:id', asyncWrapper(getReservations));
+  router.post('/reservations', asyncWrapper(postReservation));
+  router.delete('/reservations/:id', asyncWrapper(deleteReservation));
 
   return router;
 };

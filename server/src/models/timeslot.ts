@@ -6,12 +6,14 @@ import { Space } from './space';
 export class TimeSlot extends BaseEntity {
 
   @PrimaryGeneratedColumn('uuid')
-  id: number;
+  id: string;
 
   @Column()
   startTime: Date;
 
-  @ManyToOne(() => Space, space => space.timeslots)
+  @ManyToOne(() => Space, space => space.timeslots, {
+    onDelete: 'CASCADE'
+  })
   space: Space;
 
   @OneToOne(() => Reservation)

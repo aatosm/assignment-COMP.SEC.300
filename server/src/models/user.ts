@@ -19,7 +19,9 @@ export class User extends BaseEntity {
   @Column()
   password: string;
 
-  @OneToMany(() => Reservation, reservation => reservation.user)
+  @OneToMany(() => Reservation, reservation => reservation.user, {
+    cascade: true
+  })
   reservations?: Reservation[];
 
   toUserData(): UserData {

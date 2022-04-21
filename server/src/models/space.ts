@@ -10,6 +10,8 @@ export class Space extends BaseEntity {
   @Column()
   identifier: string;
 
-  @OneToMany(() => TimeSlot, timeslot => timeslot.space)
+  @OneToMany(() => TimeSlot, timeslot => timeslot.space, {
+    cascade: true
+  })
   timeslots?: TimeSlot[];
 }
