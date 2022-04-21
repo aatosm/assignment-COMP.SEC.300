@@ -1,5 +1,10 @@
 export interface ITimeSlot {
   id: string,
   startTime: string,
-  isReserved: boolean
+  isReserved: boolean,
+  space: ISpace
+}
+
+export interface ISpace {
+  identifier: string
 }

@@ -6,17 +6,18 @@ interface IProps {
 }
 
 const TimeSlot = (props: IProps) => {
+  const { timeSlot } = props;
   return(
     <div className="timeslot-container">
       <div>
         <div className="timeslot__time">
           <p>Klo</p>
-          <p>{ props.timeSlot.startTime }</p>
+          <p>{ new Date(timeSlot.startTime).getHours() }</p>
           <p>1h</p>
         </div>
       </div>
       <div>
-        { props.timeSlot.id }
+        { timeSlot.space.identifier }
       </div>
     </div>
   )

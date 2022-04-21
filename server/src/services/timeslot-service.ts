@@ -1,5 +1,5 @@
 import { TimeSlot } from "../models/timeslot";
 
 export async function fetchTimeSlots() {
-  return await TimeSlot.find();
+  return await TimeSlot.find({ relations: ['space'] });
 }
