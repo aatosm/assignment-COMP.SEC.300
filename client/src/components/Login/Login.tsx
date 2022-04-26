@@ -1,33 +1,33 @@
-import * as React from "react";
-import "./styles.scss";
-import { useForm } from "react-hook-form";
-import { loginUser } from "../../lib/api";
-import { IUser } from "../../types/user";
+import * as React from 'react'
+import './styles.scss'
+import { useForm } from 'react-hook-form'
+import { loginUser } from '../../lib/api'
+import { IUser } from '../../types/user'
 
 interface IProps {
-  setAuth: React.Dispatch<React.SetStateAction<boolean>>,
+  setAuth: React.Dispatch<React.SetStateAction<boolean>>
   setUser: React.Dispatch<React.SetStateAction<IUser>>
 }
 
 const Login = (props: IProps) => {
-  const { setAuth, setUser } = props;
+  const { setAuth, setUser } = props
   const {
     register,
     handleSubmit,
     formState: { errors },
-  } = useForm();
+  } = useForm()
 
   async function onSubmit(data: any) {
-    const response = await loginUser(data);
+    const response = await loginUser(data)
     if (response.status === 200) {
-      const { id, email } = response.data.user;
-      setAuth(true);
+      const { id, email } = response.data.user
+      setAuth(true)
       setUser({
         id,
-        email
-      });
+        email,
+      })
     }
-  };
+  }
 
   return (
     <div className="login-container">
@@ -45,6 +45,6 @@ const Login = (props: IProps) => {
       </div>
     </div>
   )
-};
+}
 
-export default Login;
+export default Login

@@ -1,21 +1,21 @@
-import * as React from "react";
-import "./styles.scss";
-import { useForm } from "react-hook-form";
-import { registerUser } from "../../lib/api";
+import * as React from 'react'
+import './styles.scss'
+import { useForm } from 'react-hook-form'
+import { registerUser } from '../../lib/api'
 
 const Register = () => {
   const {
     register,
     handleSubmit,
     formState: { errors },
-  } = useForm();
+  } = useForm()
 
-  async function onSubmit(data: any){
-    const response = await registerUser(data);
+  async function onSubmit(data: any) {
+    const response = await registerUser(data)
     if (response.status === 200) {
-      console.log(response.data.message);
+      console.log(response.data.message)
     }
-  };
+  }
 
   return (
     <div className="register-container">
@@ -35,6 +35,6 @@ const Register = () => {
       </div>
     </div>
   )
-};
+}
 
-export default Register;
+export default Register

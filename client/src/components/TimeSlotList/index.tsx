@@ -1,3 +1,3 @@
-import TimeSlotList from './TimeSlotList';
+import TimeSlotList from './TimeSlotList'
 
-export default TimeSlotList;
+export default TimeSlotList

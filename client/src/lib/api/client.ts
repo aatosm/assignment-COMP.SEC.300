@@ -1,7 +1,7 @@
-import axios from 'axios';
+import axios from 'axios'
 
 const client = axios.create({
-  timeout: 20000
-});
+  timeout: 20000,
+})
 
-export default client;
+export default client

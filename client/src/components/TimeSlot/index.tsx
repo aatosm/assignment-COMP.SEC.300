@@ -1,3 +1,3 @@
-import TimeSlot from './TimeSlot';
+import TimeSlot from './TimeSlot'
 
-export default TimeSlot;
+export default TimeSlot
