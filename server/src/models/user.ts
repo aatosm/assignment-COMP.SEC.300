@@ -1,34 +1,39 @@
-import { Entity, Column, PrimaryGeneratedColumn, OneToMany, BaseEntity } from 'typeorm';
-import { UserData } from '../interfaces/user.interfaces';
-import { Reservation } from './reservation';
+import {
+  Entity,
+  Column,
+  PrimaryGeneratedColumn,
+  OneToMany,
+  BaseEntity,
+} from 'typeorm'
+import { UserData } from '../interfaces/user.interfaces'
+import { Reservation } from './reservation'
 
 @Entity()
 export class User extends BaseEntity {
-
   @PrimaryGeneratedColumn('uuid')
-  id: string;
+  id: string
 
   @Column()
-  email: string;
+  email: string
 
   @Column({
-    nullable: true
+    nullable: true,
   })
-  name?: string;
+  name?: string
 
   @Column()
-  password: string;
+  password: string
 
-  @OneToMany(() => Reservation, reservation => reservation.user, {
-    cascade: true
+  @OneToMany(() => Reservation, (reservation) => reservation.user, {
+    cascade: true,
   })
-  reservations?: Reservation[];
+  reservations?: Reservation[]
 
   toUserData(): UserData {
     return {
       id: this.id,
       email: this.email,
-      name: this.name
-    };
+      name: this.name,
+    }
   }
 }

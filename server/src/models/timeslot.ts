@@ -1,25 +1,32 @@
-import { Entity, Column, PrimaryGeneratedColumn, ManyToOne, OneToOne, JoinColumn, BaseEntity } from 'typeorm';
-import { Reservation } from './reservation';
-import { Space } from './space';
+import {
+  Entity,
+  Column,
+  PrimaryGeneratedColumn,
+  ManyToOne,
+  OneToOne,
+  JoinColumn,
+  BaseEntity,
+} from 'typeorm'
+import { Reservation } from './reservation'
+import { Space } from './space'
 
 @Entity()
 export class TimeSlot extends BaseEntity {
-
   @PrimaryGeneratedColumn('uuid')
-  id: string;
+  id: string
 
   @Column()
-  startTime: Date;
+  startTime: Date
 
-  @ManyToOne(() => Space, space => space.timeslots, {
-    onDelete: 'CASCADE'
+  @ManyToOne(() => Space, (space) => space.timeslots, {
+    onDelete: 'CASCADE',
   })
-  space: Space;
+  space: Space
 
   @OneToOne(() => Reservation)
   @JoinColumn()
-  reservation?: Reservation;
+  reservation?: Reservation
 
-  @Column('boolean', {default: false})
-  isReserved: boolean;
+  @Column('boolean', { default: false })
+  isReserved: boolean
 }

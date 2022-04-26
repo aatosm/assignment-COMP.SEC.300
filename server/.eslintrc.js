@@ -1,27 +1,31 @@
 module.exports = {
-  parser: '@typescript-eslint/parser',
-  plugins: [
-    "@typescript-eslint"
-  ],
-  extends: [
-    'eslint:recommended',
-    'plugin:@typescript-eslint/recommended',
-    'plugin:@typescript-eslint/eslint-recommended'
-  ],
-  parserOptions: {
-    sourceType: 'module'
-  },
-  rules: {
-    '@typescript-eslint/explicit-function-return-type': 'off',
-    '@typescript-eslint/no-explicit-any': 'off',
-    '@typescript-eslint/no-unused-vars': 'off',
-    '@typescript-eslint/no-use-before-define': ["error", { "functions": false }],
-    '@typescript-eslint/no-non-null-assertion': 'off',
-    '@typescript-eslint/no-empty-function': 'off',
-    'max-len': ['error', { code: 120 }],
-    'no-console': 'off',
-    'no-unused-vars': 'off',
-    indent: ['error', 2],
-    'semi': 'error'
-  }
-};
+    "env": {
+        "browser": true,
+        "es2021": true
+    },
+    "extends": [
+        "eslint:recommended",
+        "plugin:@typescript-eslint/recommended"
+    ],
+    "parser": "@typescript-eslint/parser",
+    "parserOptions": {
+        "ecmaVersion": "latest",
+        "sourceType": "module"
+    },
+    "plugins": [
+        "@typescript-eslint"
+    ],
+    "ignorePatterns": ["/src/migrations/**/*.ts"],
+    "rules": {
+      'comma-dangle': 'off',
+      'max-len': ['error', { code: 120 }],
+      'new-cap': 'off',
+      'no-console': 'off',
+      'no-unused-vars': 'off',
+      'no-undef': 'off',
+      'require-jsdoc': 'off',
+      'valid-jsdoc': 'off',
+      'no-useless-catch': 'off',
+      'indent': 'off'
+    }
+}

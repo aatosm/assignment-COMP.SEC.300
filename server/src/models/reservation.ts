@@ -1,20 +1,27 @@
-import { Entity, PrimaryGeneratedColumn, ManyToOne, OneToOne, JoinColumn, BaseEntity, Column } from 'typeorm';
-import { TimeSlot } from './timeslot';
-import { User } from './user';
+import {
+  Entity,
+  PrimaryGeneratedColumn,
+  ManyToOne,
+  OneToOne,
+  JoinColumn,
+  BaseEntity,
+  Column,
+} from 'typeorm'
+import { TimeSlot } from './timeslot'
+import { User } from './user'
 
 @Entity()
 export class Reservation extends BaseEntity {
-
   @PrimaryGeneratedColumn('uuid')
-  id: string;
+  id: string
 
-  @ManyToOne(() => User, user => user.reservations, {
-    onDelete: 'CASCADE'
+  @ManyToOne(() => User, (user) => user.reservations, {
+    onDelete: 'CASCADE',
   })
-  user: User;
+  user: User
 
   @OneToOne(() => TimeSlot, {
-    onDelete: 'CASCADE'
+    onDelete: 'CASCADE',
   })
   @JoinColumn()
   timeslot: TimeSlot

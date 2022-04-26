@@ -1,17 +1,22 @@
-import { Entity, Column, PrimaryGeneratedColumn, OneToMany, BaseEntity } from 'typeorm';
-import { TimeSlot } from './timeslot';
+import {
+  Entity,
+  Column,
+  PrimaryGeneratedColumn,
+  OneToMany,
+  BaseEntity,
+} from 'typeorm'
+import { TimeSlot } from './timeslot'
 
 @Entity()
 export class Space extends BaseEntity {
-
   @PrimaryGeneratedColumn('uuid')
-  id: string;
+  id: string
 
   @Column()
-  identifier: string;
+  identifier: string
 
-  @OneToMany(() => TimeSlot, timeslot => timeslot.space, {
-    cascade: true
+  @OneToMany(() => TimeSlot, (timeslot) => timeslot.space, {
+    cascade: true,
   })
-  timeslots?: TimeSlot[];
+  timeslots?: TimeSlot[]
 }
