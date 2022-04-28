@@ -1,4 +1,5 @@
 import { Router } from 'express'
+import { User } from './models/user'
 import {
   deleteReservation,
   getReservations,
@@ -38,6 +39,21 @@ export const createAuthRouter = (): Router => {
     req.logout()
     res.json({
       message: 'Successfully logged out',
+    })
+  })
+
+  router.get('/login-state', (req, res) => {
+    const user = req.user as User
+    if (!user) {
+      res.json({
+        isAuthenticated: false,
+      })
+      return
+    }
+    res.json({
+      isAuthenticated: true,
+      id: user.id,
+      email: user.email,
     })
   })
 

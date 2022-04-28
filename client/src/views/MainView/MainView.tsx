@@ -1,6 +1,7 @@
 import { useEffect, useState } from 'react'
 import TimeSlotList from '../../components/TimeSlotList'
-import { getTimeSlots, logOutUser } from '../../lib/api/index'
+import ReservationModal from '../../components/ReservationModal'
+import { getTimeSlots } from '../../lib/api/index'
 import { ITimeSlot } from '../../types/timeslot'
 import { IUser } from '../../types/user'
 
@@ -11,6 +12,12 @@ interface IProps {
 
 const MainView = (props: IProps) => {
   const { setAuth, user } = props
+  const [currentTimeSlot, setCurrentTimeSlot] = useState<ITimeSlot>({
+    id: '',
+    startTime: '',
+    isReserved: false,
+    space: { identifier: '' },
+  })
   const [timeSlots, setTimeSlots] = useState<ITimeSlot[]>([])
 
   useEffect(() => {
@@ -22,18 +29,15 @@ const MainView = (props: IProps) => {
     fetchTimeSlots()
   }, [])
 
-  async function logOut() {
-    const response = await logOutUser()
-    if (response.status === 200) {
-      console.log(response.data.message)
-      setAuth(false)
-    }
-  }
-
   return (
     <div>
-      <button onClick={logOut}>Log out</button>
-      <TimeSlotList timeSlots={timeSlots} />
+      <TimeSlotList
+        timeSlots={timeSlots}
+        setCurrentTimeSlot={setCurrentTimeSlot}
+      />
+      {currentTimeSlot.id !== '' ? (
+        <ReservationModal timeSlot={currentTimeSlot} />
+      ) : null}
     </div>
   )
 }

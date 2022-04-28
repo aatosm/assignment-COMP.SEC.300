@@ -1,0 +1,15 @@
+.modal-container {
+  border: 1px solid black;
+}
+
+.modal-form {
+  display: flex;
+  > form {
+    display: flex;
+    flex-direction: column;
+    > textarea {
+      width: 450px;
+      height: 180px;
+    }
+  }
+}

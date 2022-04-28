@@ -37,8 +37,10 @@ const Login = (props: IProps) => {
       <div className="login__form">
         <form onSubmit={handleSubmit(onSubmit)}>
           <label>Email</label>
+          {errors.email && <p className="error">Email is required</p>}
           <input {...register('email', { required: true })} />
           <label>Password</label>
+          {errors.password && <p className="error">Password is required</p>}
           <input {...register('password', { required: true })} />
           <input type="submit" />
         </form>

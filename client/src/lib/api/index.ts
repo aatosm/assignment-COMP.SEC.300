@@ -16,3 +16,7 @@ export async function loginUser(params: ILoginUser) {
 export async function logOutUser() {
   return await client.post(`/auth/logout`)
 }
+
+export async function getLoginState() {
+  return await client.get(`/auth/login-state`)
+}
