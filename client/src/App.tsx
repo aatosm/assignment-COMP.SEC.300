@@ -22,7 +22,11 @@ const App = () => {
 
   return (
     <div>
-      <NavBar authenticated={authenticated} setAuth={setAuth} />
+      <NavBar
+        authenticated={authenticated}
+        setAuth={setAuth}
+        setUser={setUser}
+      />
       <div style={{ padding: '40px 60px 60px 60px' }}>
         {authenticated ? (
           <MainView setAuth={setAuth} user={user} />

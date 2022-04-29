@@ -1,9 +1,11 @@
 import { useEffect, useState } from 'react'
 import TimeSlotList from '../../components/TimeSlotList'
 import ReservationModal from '../../components/ReservationModal'
-import { getTimeSlots } from '../../lib/api/index'
+import { getReservations, getTimeSlots } from '../../lib/api/index'
 import { ITimeSlot } from '../../types/timeslot'
 import { IUser } from '../../types/user'
+import OwnReservations from '../../components/OwnReservations/OwnReservations'
+import { IReservation } from '../../types/reservation'
 
 interface IProps {
   setAuth: React.Dispatch<React.SetStateAction<boolean>>
@@ -19,24 +21,35 @@ const MainView = (props: IProps) => {
     space: { identifier: '' },
   })
   const [timeSlots, setTimeSlots] = useState<ITimeSlot[]>([])
+  const [ownReservations, setOwnReservations] = useState<IReservation[]>([])
 
   useEffect(() => {
+    async function fetchReservations() {
+      const reservations = await getReservations(user.id)
+      console.log(reservations.data)
+      await setOwnReservations(reservations.data)
+    }
     async function fetchTimeSlots() {
       const timeSlots = await getTimeSlots()
-      console.log(timeSlots.data)
       await setTimeSlots(timeSlots.data)
     }
-    fetchTimeSlots()
-  }, [])
+    if (user.id !== '') {
+      fetchReservations()
+      fetchTimeSlots()
+    }
+  }, [user])
 
   return (
     <div>
+      <h2>Your own reservations</h2>
+      <OwnReservations reservations={ownReservations} />
+      <h2>List of available reservations</h2>
       <TimeSlotList
         timeSlots={timeSlots}
         setCurrentTimeSlot={setCurrentTimeSlot}
       />
       {currentTimeSlot.id !== '' ? (
-        <ReservationModal timeSlot={currentTimeSlot} />
+        <ReservationModal timeSlot={currentTimeSlot} user={user} />
       ) : null}
     </div>
   )

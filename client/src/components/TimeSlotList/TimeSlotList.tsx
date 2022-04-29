@@ -10,7 +10,6 @@ const TimeSlotList = (props: IProps) => {
   const { timeSlots, setCurrentTimeSlot } = props
   return (
     <div>
-      <h2>List of available reservations</h2>
       {timeSlots.map((timeSlot, index) => {
         return (
           <TimeSlot

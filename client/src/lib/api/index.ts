@@ -1,5 +1,6 @@
 import client from './client'
 import { IRegisterUser, ILoginUser } from '../../types/user'
+import { IPostReservation } from '../../types/reservation'
 
 export async function getTimeSlots() {
   return await client.get(`/api/timeslots`)
@@ -19,4 +20,12 @@ export async function logOutUser() {
 
 export async function getLoginState() {
   return await client.get(`/auth/login-state`)
+}
+
+export async function getReservations(userId: string) {
+  return await client.get(`api/reservations/${userId}`)
+}
+
+export async function postReservation(params: IPostReservation) {
+  return await client.post(`/api/reservations`, params)
 }
