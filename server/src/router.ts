@@ -13,9 +13,13 @@ import {
 } from './controllers/user-controller'
 import { asyncWrapper } from './middlewares/async-wrapper'
 import { signInUser } from './middlewares/passport'
+import { loginRequired } from './middlewares/auth-middleware'
 
 export const createRouter = (): Router => {
   const router = Router()
+
+  // All routes below are login-protected
+  router.use(loginRequired)
 
   router.get('/users', asyncWrapper(getUsers))
   router.post('/users', asyncWrapper(createUser))
