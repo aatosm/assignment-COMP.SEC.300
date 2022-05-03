@@ -1,13 +1,15 @@
 .timeslot-container {
   display: flex;
-  flex-direction: row;
+  flex-direction: column;
   border: 1px solid black;
   margin: 0 0 40px 0;
-  width: 500px;
+  width: 520px;
   cursor: pointer;
 }
 
 .timeslot {
+  display: flex;
+  flex-direction: row;
   &__time {
     display: flex;
     flex-direction: column;

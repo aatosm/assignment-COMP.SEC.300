@@ -8,6 +8,7 @@ interface IProps {
 
 const TimeSlot = (props: IProps) => {
   const { timeSlot, setCurrentTimeSlot } = props
+  const startTime = new Date(timeSlot.startTime)
 
   async function setTimeSlot() {
     setCurrentTimeSlot(timeSlot)
@@ -15,13 +16,19 @@ const TimeSlot = (props: IProps) => {
 
   return (
     <div className="timeslot-container" onClick={setTimeSlot}>
-      <div>
-        <div className="timeslot__time">
-          <p>Klo {new Date(timeSlot.startTime).getHours()} (1h)</p>
+      <div className="timeslot">
+        <div>
+          <div className="timeslot__time">
+            <p>
+              {startTime.getDate()}.{startTime.getMonth() + 1}.
+              {startTime.getFullYear()}
+            </p>
+            <p>Klo {new Date(timeSlot.startTime).getHours()} (1h)</p>
+          </div>
         </div>
-      </div>
-      <div className="timeslot__space">
-        <h2>{timeSlot.space.identifier}</h2>
+        <div className="timeslot__space">
+          <h2>{timeSlot.space.identifier}</h2>
+        </div>
       </div>
     </div>
   )

@@ -26,13 +26,19 @@ const Register = () => {
         <form onSubmit={handleSubmit(onSubmit)}>
           <label>Email</label>
           {errors.email && <p className="error">Email is required</p>}
-          <input {...register('email', { required: true })} />
+          <input type="email" {...register('email', { required: true })} />
           <label>Password</label>
           {errors.password && <p className="error">Password is required</p>}
-          <input {...register('password', { required: true })} />
+          <input
+            type="password"
+            {...register('password', { required: true })}
+          />
           <label>Re-type password</label>
           {errors.password2 && <p className="error">Passwords do not match</p>}
-          <input {...register('password2', { required: true })} />
+          <input
+            type="password"
+            {...register('password2', { required: true })}
+          />
           <input type="submit" />
         </form>
       </div>

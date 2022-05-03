@@ -29,3 +29,7 @@ export async function getReservations(userId: string) {
 export async function postReservation(params: IPostReservation) {
   return await client.post(`/api/reservations`, params)
 }
+
+export async function deleteReservation(reservationId: string) {
+  return await client.delete(`/api/reservations/${reservationId}`)
+}

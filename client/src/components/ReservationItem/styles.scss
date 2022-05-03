@@ -1,0 +1,46 @@
+.reservation-container {
+  display: flex;
+  flex-direction: column;
+  border: 1px solid black;
+  margin: 0 0 40px 0;
+  width: 520px;
+  cursor: pointer;
+}
+
+.reservation {
+  display: flex;
+  flex-direction: row;
+  &__time {
+    display: flex;
+    flex-direction: column;
+    width: 200px;
+    margin: 20px 0 20px 20px;
+    border-right: 1px solid black;
+    > p {
+      margin: 0 0 4px 0;
+      padding: 0;
+      font-size: 26px;
+    }
+  }
+  &__space {
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    margin: 0 0 0 20px;
+    border-right: 1px solid black;
+  }
+  &__delete {
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    margin: 0 20px 0 20px;
+  }
+}
+
+.reservation-info {
+  border-top: 1px solid black;
+  > p {
+    margin: 20px;
+    font-size: 18px;
+  }
+}
