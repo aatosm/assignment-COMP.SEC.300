@@ -1,4 +1,4 @@
-import * as React from 'react'
+import { useState } from 'react'
 import './styles.scss'
 import { useForm } from 'react-hook-form'
 import { registerUser } from '../../lib/api'
@@ -10,10 +10,17 @@ const Register = () => {
     formState: { errors },
   } = useForm()
 
+  const [pwMatchError, setPwMatchError] = useState<boolean>(false)
+
   async function onSubmit(data: any) {
-    const response = await registerUser(data)
-    if (response.status === 200) {
-      console.log(response.data.message)
+    if (data.password !== data.password2) {
+      setPwMatchError(true)
+    } else {
+      setPwMatchError(false)
+      const response = await registerUser(data)
+      if (response.status === 200) {
+        console.log(response.data.message)
+      }
     }
   }
 
@@ -34,7 +41,9 @@ const Register = () => {
             {...register('password', { required: true })}
           />
           <label>Re-type password</label>
-          {errors.password2 && <p className="error">Passwords do not match</p>}
+          {(errors.password2 || pwMatchError) && (
+            <p className="error">Passwords do not match</p>
+          )}
           <input
             type="password"
             {...register('password2', { required: true })}

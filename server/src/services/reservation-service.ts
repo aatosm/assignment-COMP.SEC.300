@@ -7,6 +7,7 @@ import {
   ReservationFailedError,
   StatusError,
 } from '../utils/errors'
+import validator from 'validator'
 
 export async function fetchReservations(id: string) {
   const user = await User.findOne({
@@ -22,6 +23,7 @@ export async function fetchReservations(id: string) {
 
 export async function createReservation(body: PostReservationBody) {
   const { timeSlotId, userId, text } = body
+  const cleanText = validator.escape(text)
   const timeslot = await TimeSlot.findOne({ id: timeSlotId })
   if (!timeslot) {
     throw new NotFoundError('Timeslot was not found.')
@@ -37,7 +39,7 @@ export async function createReservation(body: PostReservationBody) {
   })
   const reservation = await Reservation.create({
     timeslot,
-    text,
+    text: cleanText,
   }).save()
   user.reservations.push(reservation)
   await user.save()

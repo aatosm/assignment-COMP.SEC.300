@@ -1,6 +1,10 @@
 import { Request, Response } from 'express'
 import { CreateUserResponse, UserData } from '../interfaces/user.interfaces'
-import { fetchUsers, registerUser } from '../services/user-service'
+import {
+  fetchUsers,
+  registerUser,
+  validateRegistration,
+} from '../services/user-service'
 
 export async function getUsers(req: Request, res: Response) {
   const users = await fetchUsers()
@@ -16,12 +20,17 @@ export async function getUsers(req: Request, res: Response) {
 
 export async function createUser(req: Request, res: Response) {
   const body = req.body
-  const user = await registerUser(body)
-  const response: CreateUserResponse = {
-    message: 'User created succesfully',
-    data: user.toUserData(),
+  try {
+    await validateRegistration(body)
+    const user = await registerUser(body)
+    const response: CreateUserResponse = {
+      message: 'User created succesfully',
+      data: user.toUserData(),
+    }
+    res.status(200).json(response)
+  } catch (err) {
+    throw err
   }
-  res.status(200).json(response)
 }
 
 export async function getUserById(req: Request, res: Response) {}

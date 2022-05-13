@@ -1,5 +1,7 @@
 import { User } from '../models/user'
 import * as bcrypt from 'bcrypt'
+import validator from 'validator'
+import { BadRequestError } from '../utils/errors'
 
 export async function fetchUsers() {
   return await User.find()
@@ -28,9 +30,12 @@ export async function hashPassword(password: string) {
   return await bcrypt.hash(password, salt)
 }
 
-async function validateRegistration(body) {
-  const { email, name, password, password2 } = body
-  if (password !== password2) {
-    //
+export async function validateRegistration(body) {
+  const { email, password, password2 } = body
+  if (!validator.isEmail(email)) {
+    throw new BadRequestError('Given email is not in correct form.')
+  }
+  if (!validator.equals(password2, password)) {
+    throw new BadRequestError('Given passwords do not match.')
   }
 }

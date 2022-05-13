@@ -18,11 +18,12 @@ import { loginRequired } from './middlewares/auth-middleware'
 export const createRouter = (): Router => {
   const router = Router()
 
+  router.post('/users', asyncWrapper(createUser))
+
   // All routes below are login-protected
   router.use(loginRequired)
 
   router.get('/users', asyncWrapper(getUsers))
-  router.post('/users', asyncWrapper(createUser))
   router.get('/users/:id', asyncWrapper(getUserById))
 
   router.get('/timeslots', asyncWrapper(getTimeSlots))
