@@ -32,5 +32,3 @@ export async function createUser(req: Request, res: Response) {
     throw err
   }
 }
-
-export async function getUserById(req: Request, res: Response) {}

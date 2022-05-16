@@ -10,6 +10,7 @@ import { passport } from './middlewares/passport'
 import { TypeormStore } from 'connect-typeorm'
 import { Session } from './models/session'
 import { initDatabase } from './config/initdb'
+import { TimeSlot } from './models/timeslot'
 
 export async function createApp() {
   await createConnection({
@@ -28,9 +29,13 @@ export async function createApp() {
 
   console.log('Connected to the database.')
 
-  /*if (process.env.INIT_DB == 'true') {
-    await initDatabase();
-  }*/
+  if (process.env.INIT_DB == 'true') {
+    const slots = await TimeSlot.find()
+    console.log(slots.length)
+    if (slots.length === 0) {
+      await initDatabase();
+    }
+  }
 
   const app = express()
 

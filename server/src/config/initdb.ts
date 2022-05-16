@@ -1,56 +1,34 @@
-import { Space } from "../models/space";
-import { TimeSlot } from "../models/timeslot";
-import { User } from "../models/user";
-import { hashPassword } from "../services/user-service"
+import { Space } from '../models/space'
+import { TimeSlot } from '../models/timeslot'
 
 export async function initDatabase() {
-  
-  await User.create({
-    email: 'testi@test.com',
-    name: 'Testi Testinen',
-    password: await hashPassword('pw')
-  }).save();
+  const timeslot = await TimeSlot.create({
+    startTime: new Date(2022, 6, 2, 8),
+  }).save()
 
-  await User.create({
-    email: 'testi2@test.com',
-    name: 'Testi Testinen',
-    password: await hashPassword('pw')
-  }).save();
+  const timeslot2 = await TimeSlot.create({
+    startTime: new Date(2022, 6, 2, 9),
+  }).save()
 
-  const space1 = await Space.create({
+  const timeslot3 = await TimeSlot.create({
+    startTime: new Date(2022, 6, 2, 10),
+  }).save()
+
+  const timeslot4 = await TimeSlot.create({
+    startTime: new Date(2022, 6, 2, 11),
+  }).save()
+
+  const timeslot5 = await TimeSlot.create({
+    startTime: new Date(2022, 6, 2, 12),
+  }).save()
+
+  await Space.create({
     identifier: 'Reservation Space 1',
-    timeslots: []
-  }).save();
+    timeslots: [timeslot, timeslot2, timeslot3],
+  }).save()
 
-  const space2 = await Space.create({
+  await Space.create({
     identifier: 'Reservation Space 2',
-    timeslots: []
-  }).save();
-
-  await TimeSlot.create({
-    startTime: new Date(2022, 4, 1, 8),
-    space: space1
-  }).save();
-
-  await TimeSlot.create({
-    startTime: new Date(2022, 4, 1, 9),
-    space: space1
-  }).save();
-
-  await TimeSlot.create({
-    startTime: new Date(2022, 4, 1, 10),
-    space: space1
-  }).save();
-
-  await TimeSlot.create({
-    startTime: new Date(2022, 4, 1, 11),
-    space: space2
-  }).save();
-
-  await TimeSlot.create({
-    startTime: new Date(2022, 4, 1, 12),
-    space: space2
-  }).save();
-
-  
+    timeslots: [timeslot4, timeslot5],
+  }).save()
 }
