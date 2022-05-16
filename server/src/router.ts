@@ -1,4 +1,4 @@
-import { Router } from 'express'
+import { Request, Response, Router } from 'express'
 import { User } from './models/user'
 import {
   deleteReservation,
@@ -6,17 +6,21 @@ import {
   postReservation,
 } from './controllers/reservation-controller'
 import { getTimeSlots } from './controllers/timeslot-controller'
-import {
-  getUsers,
-  createUser,
-  getUserById,
-} from './controllers/user-controller'
+import { getUsers, createUser } from './controllers/user-controller'
 import { asyncWrapper } from './middlewares/async-wrapper'
 import { signInUser } from './middlewares/passport'
 import { loginRequired } from './middlewares/auth-middleware'
+import * as csurf from 'csurf'
+
+const csrfProtection = csurf()
 
 export const createRouter = (): Router => {
   const router = Router()
+
+  router.get('/token', csrfProtection, (req: Request, res: Response) => {
+    const response = { csrfToken: req.csrfToken() }
+    res.status(200).json(response)
+  })
 
   router.post('/users', asyncWrapper(createUser))
 
@@ -24,12 +28,11 @@ export const createRouter = (): Router => {
   router.use(loginRequired)
 
   router.get('/users', asyncWrapper(getUsers))
-  router.get('/users/:id', asyncWrapper(getUserById))
 
   router.get('/timeslots', asyncWrapper(getTimeSlots))
 
   router.get('/reservations/:id', asyncWrapper(getReservations))
-  router.post('/reservations', asyncWrapper(postReservation))
+  router.post('/reservations', csrfProtection, asyncWrapper(postReservation))
   router.delete('/reservations/:id', asyncWrapper(deleteReservation))
 
   return router

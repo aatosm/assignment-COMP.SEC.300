@@ -7,10 +7,11 @@ import { IUser } from '../../types/user'
 interface IProps {
   timeSlot: ITimeSlot
   user: IUser
+  csrfToken: string
 }
 
 const ReservationModal = (props: IProps) => {
-  const { timeSlot, user } = props
+  const { timeSlot, user, csrfToken } = props
   const {
     register,
     handleSubmit,
@@ -18,11 +19,14 @@ const ReservationModal = (props: IProps) => {
   } = useForm()
 
   async function onSubmit(data: any) {
-    const response = await postReservation({
-      timeSlotId: timeSlot.id,
-      userId: user.id,
-      text: data.info,
-    })
+    const response = await postReservation(
+      {
+        timeSlotId: timeSlot.id,
+        userId: user.id,
+        text: data.info,
+      },
+      csrfToken
+    )
     if (response.status === 200) {
       console.log(response)
     }

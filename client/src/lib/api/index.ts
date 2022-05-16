@@ -2,6 +2,10 @@ import client from './client'
 import { IRegisterUser, ILoginUser } from '../../types/user'
 import { IPostReservation } from '../../types/reservation'
 
+export async function getCsrfToken() {
+  return await client.get(`/api/token`)
+}
+
 export async function getTimeSlots() {
   return await client.get(`/api/timeslots`)
 }
@@ -26,8 +30,13 @@ export async function getReservations(userId: string) {
   return await client.get(`api/reservations/${userId}`)
 }
 
-export async function postReservation(params: IPostReservation) {
-  return await client.post(`/api/reservations`, params)
+export async function postReservation(
+  params: IPostReservation,
+  csrfToken: string
+) {
+  return await client.post(`/api/reservations`, params, {
+    headers: { 'CSRF-Token': csrfToken },
+  })
 }
 
 export async function deleteReservation(reservationId: string) {

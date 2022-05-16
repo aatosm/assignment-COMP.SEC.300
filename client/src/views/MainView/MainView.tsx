@@ -1,7 +1,11 @@
 import { useEffect, useState } from 'react'
 import TimeSlotList from '../../components/TimeSlotList'
 import ReservationModal from '../../components/ReservationModal'
-import { getReservations, getTimeSlots } from '../../lib/api/index'
+import {
+  getCsrfToken,
+  getReservations,
+  getTimeSlots,
+} from '../../lib/api/index'
 import { ITimeSlot } from '../../types/timeslot'
 import { IUser } from '../../types/user'
 import OwnReservations from '../../components/OwnReservations/OwnReservations'
@@ -13,7 +17,7 @@ interface IProps {
 }
 
 const MainView = (props: IProps) => {
-  const { setAuth, user } = props
+  const { user } = props
   const [currentTimeSlot, setCurrentTimeSlot] = useState<ITimeSlot>({
     id: '',
     startTime: '',
@@ -22,18 +26,29 @@ const MainView = (props: IProps) => {
   })
   const [timeSlots, setTimeSlots] = useState<ITimeSlot[]>([])
   const [ownReservations, setOwnReservations] = useState<IReservation[]>([])
+  const [csrfToken, setCsrfToken] = useState<string>('')
 
   useEffect(() => {
+    async function fetchCsrfToken() {
+      const response = await getCsrfToken()
+      if (response.status === 200) {
+        setCsrfToken(response.data.csrfToken)
+      }
+    }
+
     async function fetchReservations() {
       const reservations = await getReservations(user.id)
       console.log(reservations.data)
       await setOwnReservations(reservations.data)
     }
+
     async function fetchTimeSlots() {
       const timeSlots = await getTimeSlots()
       await setTimeSlots(timeSlots.data)
     }
+
     if (user.id !== '') {
+      fetchCsrfToken()
       fetchReservations()
       fetchTimeSlots()
     }
@@ -49,7 +64,11 @@ const MainView = (props: IProps) => {
         setCurrentTimeSlot={setCurrentTimeSlot}
       />
       {currentTimeSlot.id !== '' ? (
-        <ReservationModal timeSlot={currentTimeSlot} user={user} />
+        <ReservationModal
+          timeSlot={currentTimeSlot}
+          user={user}
+          csrfToken={csrfToken}
+        />
       ) : null}
     </div>
   )
